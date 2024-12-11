@@ -9,7 +9,7 @@ export interface Order {
 
 // Create a new order
 export const createOrder = async (userId: number): Promise<ResultSetHeader> => {
-  const query = 'INSERT INTO orders (user_id) VALUES (?)';
+  const query = 'INSERT INTO orders (userId) VALUES (?)';
   const [result] = await db.execute(query, [userId]);
   
   return result as ResultSetHeader;  // Cast to ResultSetHeader here
