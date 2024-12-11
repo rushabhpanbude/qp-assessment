@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { UserModel } from '../models/userModel';
 import * as GroceryModel from '../models/groceryModel';
 import { ResultSetHeader } from 'mysql2';  // Use ResultSetHeader
 
@@ -76,3 +77,14 @@ export const updateInventory = async (req: Request, res: Response) => {
   }
 };
 
+export const createUser = async (req: Request, res: Response) => {
+  const { firstName, lastName, phoneNumber } = req.body;
+
+  try {
+    const user = await UserModel.createUser(firstName, lastName, phoneNumber);
+    res.status(201).json({ message: 'User created successfully', userId: user.insertId });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
+  }
+};

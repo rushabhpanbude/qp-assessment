@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { UserModel } from '../models/userModel';
 import * as OrderModel from '../models/orderModel';
 import * as OrderItemsModel from '../models/orderItemsModel';
 import * as GroceryModel from '../models/groceryModel';
