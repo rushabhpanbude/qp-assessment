@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: grocery-api
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=12345678
+      - DB_NAME=grocery_db
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+    command: npm run start
+
+  db:
+    image: mysql:8
+    container_name: grocery-mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: grocery_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
